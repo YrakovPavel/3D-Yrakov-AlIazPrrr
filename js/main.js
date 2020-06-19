@@ -42,7 +42,7 @@ window.onload = function () {
     const graph3D = new Graph3D({ WINDOW });
     //Определение объектов в сцене
     const SCENE = [
-        sur.ellipseparaboloid()
+        sur.ellipticparaboloid()
         /*
         sur.scope(40, 6, new Point(0, 0, 0), '#ffff00' , { rotateOz: new Point(0,0,0)}),
         sur.scope(20, 3, new Point(-6, 0, -6), '#00ffff' , { rotateOz: new Point(-6,0,-6)}),

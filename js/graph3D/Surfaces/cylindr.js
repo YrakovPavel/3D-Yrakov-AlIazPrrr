@@ -1,43 +1,61 @@
-Surfaces.prototype.cylinder = (R = 10, count = 30, height = 20, point = new Point(0, -R/2, 0), color =  '#ff0000') => {
-	const points = [];
-	const edges = [];
-    const polygons = [];
-    
-    const da = 2 * Math.PI / count;
-    //Точки
-    for(let i = 0; i <= 2 * Math.PI; i += da){
-        for (let j = 0; j < height ; j ++) {
-            const x = point.x + R * Math.sin(i) ;
-            const y = point.y + j ;
-            const z = point.z + R * Math.cos(i);
+Surfaces.prototype.cylinder = (count = 20, a = 5,  c = 5, point = new Point(0, 0, 0), color = '#ff0000') => {
+    let points = [];
+    let edges = [];
+    let polygons = [];
+
+    // точки
+    const delta = Math.PI  * 2 / count;
+    for (let i = 0; i <= Math.PI; i += delta) {
+        for (let j = 0; j < Math.PI * 2; j += delta) {
+            const x = point.x + a * Math.sinh(i) * Math.cos(j);
+            const y = point.y + a * Math.sinh(i) * Math.sin(j);
+            const z = point.z + c * Math.cosh(i);  
             points.push(new Point(x, y, z));
         }
-	}
-
-    //Ребра
-    for(let i = 0; i < points.length; i++){
-        //По горизонтали
-        if(i + height < points.length){
-            edges.push(new Edge( i , i + height));
+    } 
+    
+    for (let i = 0; i <= Math.PI; i += delta) {
+        for (let j = 0; j < Math.PI * 2; j += delta) {
+            const x = point.x + a * Math.sinh(i) * Math.cos(j);
+            const y = point.y + a * Math.sinh(i) * Math.sin(j);
+            const z = (point.z - 10) + (-c) * Math.cosh(i);  
+            points.push(new Point(x, y, z));
         }
+    }  
 
-        if(i < height){
-            edges.push(new Edge( i , points.length - height + i));
+    // ребра 
+    for (let i = 0; i < points.length; i++) {
+        // вдоль
+        if (i + 1 < points.length && (i + 1) % count !== 0 && (i + 1)) {
+            edges.push(new Edge(i, i + 1));
+        } else if ((i + 1) % count === 0) {
+            edges.push(new Edge(i, i + 1 - count));
         }
-
-        //По вертикали
-        if(i % height < height - 1 ){
-            edges.push(new Edge( i, i + 1));
+        // поперёк
+        if (i + count < points.length && (i < points.length / 2) && !(i + count >= points.length / 2)) {
+            edges.push(new Edge(i, i + count));
+        }
+        if (i + count < points.length && !(i < points.length / 2) && (i + count >= points.length / 2)) {
+            edges.push(new Edge(i, i + count));
         }
     }
 
-    //Полигоны
-    for(let i = 0; i < points.length; i++){
-        if(i + height + 1 < points.length && (i + 1) % height != 0){
-            polygons.push(new Polygon([i, i+1, i + height + 1, i + height], color));
+    // полигоны
+    for (let i = 0; i < points.length / 2; i++) {
+        
+        if (i + 1 + count < points.length / 2 && (i + 1) % count !== 0 ) {
+            polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color));
+        } else if ((i + count) < points.length / 2 && (i + 1) % count === 0) {
+            polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color))
         }
-        if(i < height-1 && (i + 1) % height != 0){
-            polygons.push(new Polygon([ i , points.length - height + i, points.length - height + i + 1, i + 1],color));
+    }
+
+    for (let i = points.length / 2; i < points.length; i++) {
+        
+        if (i + 1 + count < points.length && (i + 1) % count !== 0 ) {
+            polygons.push(new Polygon([i, i + 1, i + 1 + count, i + count], color));
+        } else if ((i + count) < points.length && (i + 1) % count === 0) {
+            polygons.push(new Polygon([i, i + 1 - count, i + 1, i + count], color))
         }
     }
 
