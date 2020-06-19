@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <script src = "js/graph3D/entities/Point.js"></script>
+        <script src = "js/graph3D/entities/Polygon.js"></script>
+        <script src = "js/graph3D/entities/Edge.js"></script>
+        <script src = "js/graph3D/entities/Subject.js"></script>
+        <script src = "js/graph3D/entities/Light.js"></script>
+        <script src = "js/graph3D/Surfaces/Surfaces.js"></script>
+        <script src = "js/graph3D/Surfaces/cube.js"></script>
+        <script src = "js/graph3D/Surfaces/par.js"></script>
+        <script src = "js/graph3D/Surfaces/hyperbolicParaboloid.js"></script>
+        <script src = "js/graph3D/Surfaces/sphera.js"></script>
+        <script src = "js/graph3D/Surfaces/bublik.js"></script>
+        <script src = "js/graph3D/Surfaces/hyperCylinder.js"></script>
+        <script src = "js/graph3D/Surfaces/parCylinder.js"></script>
+        <script src = "js/graph3D/Surfaces/konus.js"></script>
+        <script src = "js/graph3D/Surfaces/elipsoid.js"></script>
+        <script src = "js/UI/UI.js"></script>
+        <script src = "js/graph3D/Math3D.js"></script>
+        <script src = "js/graph3D/Graph3D.js"></script>
+        <script src = "js/canvas.js"></script>
+        <script src = "js/main.js"></script>
+    </head>
+    <body>
+        <div>
+          <label id = "fps">FPS: </label>  
+          <label><input  id = "printPoints" type = "checkbox"> рисовать точки</label>  
+          <label><input  id = "printEdges" type = "checkbox"> рисовать ребра</label>  
+          <label><input  id = "printPolygons" type = "checkbox"> рисовать полигоны</label>  
+          <label><input id = "printShadows" type = "checkbox" > рисовать тени </label>
+        </div>
+        <div>
+        <canvas id = "canvas" height = "600" width = "600"></canvas>
+        </div>
+    </body>
+</html>
