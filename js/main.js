@@ -90,7 +90,7 @@ window.onload = function () {
             }
         } 
         j = 0;
-        for (let i = 0; i < polygons.length; i++){
+        for (let i = 0; i < polygons.length - 19; i++){
             j+=1;
             if (j==19){
                 for (let k = 1; k <= 19; k++){
