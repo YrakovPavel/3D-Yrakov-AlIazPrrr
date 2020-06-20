@@ -42,7 +42,7 @@ window.onload = function () {
     const graph3D = new Graph3D({ WINDOW });
     //Определение объектов в сцене
     const SCENE = [
-        sur.ellipticparaboloid()
+        sur.hyperCyilinder()
         /*
         sur.scope(40, 6, new Point(0, 0, 0), '#ffff00' , { rotateOz: new Point(0,0,0)}),
         sur.scope(20, 3, new Point(-6, 0, -6), '#00ffff' , { rotateOz: new Point(-6,0,-6)}),
@@ -79,32 +79,29 @@ window.onload = function () {
     }
     function changeSphere(){
         let polygons = SCENE[0].polygons;
-        let c1 = { r: 0, g: 0, b: 0};
-        let c2 = { r: 255, g: 255, b: 255};
-        let co = 0;
-     /*   for (let i = 0; i < 15; i++){
-            polygons[30 * i].color = c1;
-        } */
+        let j = 0;
         for (let i = 0; i < polygons.length; i++){
-            if (co <= 29){
-                if (i % 2 == 0){
-                    polygons[i].color =c1;
-                }
-                else polygons[i].color =c2;
-            }
-            else{
-                co = 0;
-                let temp = c1;
-                c1 = c2;
-                c2 = temp;
-            }
-            co += 1;
-        }
-   /*     for (let i = 0; i < polygons.length; i++){
-            if (i % 2 == 0){
+            j+=1;
+            if (j % 2 == 0){
                 polygons[i].color = { r: 0, g: 0, b: 0};
             }
-        } */
+            if (j==19){
+                j = 0;
+            }
+        } 
+        j = 0;
+        for (let i = 0; i < polygons.length; i++){
+            j+=1;
+            if (j==19){
+                for (let k = 1; k <= 19; k++){
+                    polygons[i+k].color = { r: 0, g: 0, b: 0};
+                    k+=1;
+                }
+                i +=19;
+                j = 0;
+            }
+
+        }
     };
 
     //зум
@@ -298,6 +295,6 @@ window.onload = function () {
         canvas.text(-9, 9, FPSout);
         canvas.render();
     }
- //   changeSphere();
+    changeSphere();
     render();
 }; 
